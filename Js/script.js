@@ -1,6 +1,6 @@
 //assigning document ids to variables in order to minuplate in js
 const quizQuestion = document.getElementById("questions");
-const quizAnswers = document.getElementById("answerList");
+const quizChoices = document.getElementById("answerList");
 const timeLeft = document.getElementById("timer");
 const highscoreLink = document.getElementById("highscores");
 //create complex quiz object with key value pairs
@@ -36,6 +36,8 @@ let time = 75;
 
 //assigning global variables for highscore
 let highscores = [];
+//assigning global variable for questionNum, to increment for other functions
+let questionNum = 0
 
 //start screen function with function scope created elements and making sure it is called at the start
 function startScreen(){
@@ -46,13 +48,15 @@ function startScreen(){
     startingParagraph.textContent = "Try to answer the following questions as fast as you can. Your score will be the time remaining."
     startButton.textContent = "Start the Quiz";
 
-    quizAnswers.appendChild(startingParagraph);
-    quizAnswers.appendChild(startButton);
+    quizChoices.appendChild(startingParagraph);
+    quizChoices.appendChild(startButton);
 
     startButton.addEventListener("click", function(){
         event.preventDefault()
         startTimer()
-    })
+        quizScreen()
+    });
+    console.log(quiz[1].choices.length)
 }
 //default function called on page load
 startScreen()
@@ -70,7 +74,22 @@ function startTimer() {
     }, 1000);
 }
 
-//function that appends quiz.question to quizQuestion and quiz.choices to answerList and removes previous assignments
+//function that appends quiz.question to quizQuestion and quiz.choices to quizChoices and removes previous assignments
 function quizScreen() {
+    [...quizChoices.childNodes].forEach(element => {
+        element.remove();
+    });
+    quizQuestion.textContent = quiz[questionNum].question;
 
+    quiz[questionNum].choices.forEach
+}
+
+//need to create a function that converts items into a button
+function buttonCreation(text, func) {
+
+    let btn = document.createElement('button');
+    btn.textContent = text;
+    btn.addEventListener("click", func);
+
+    return btn;
 }
