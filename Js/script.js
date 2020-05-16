@@ -67,7 +67,7 @@ function startTimer() {
             time --;
         }else {
             endpage();
-            clearInterval(timer);
+            // clearInterval(timer);
         }
         timeLeft.textContent = time;
     }, 1000);
@@ -108,4 +108,30 @@ function buttonCreation(text, func) {
     btn.addEventListener("click", func);
 
     return btn;
+}
+//function for end page. need to stoptimer, need to create elements for endpage with input, needs to save score in storage
+function endPage (){
+    [...quizChoices.childNodes].forEach(element => {
+        element.remove();
+    });
+    clearInterval(timer);
+
+    quizQuestion.textContent = "All Done!";
+
+    let scoreParagraph = document.createElement("p");
+    scoreParagraph.textContent = "Your score is " + time; 
+    //need to create submit form for highscores
+    let submitLabel = document.createElement("label");
+    submitLabel.textContent = "Enter your initials."
+    let submitInput = document.createElement("input")
+    let submitBtn = buttonCreation("Submit", function(){
+        let initals = submitInput.value;
+        highscores.push({"name": initals, "score": time});
+        localStorage.setItem("Highscores", JSON.stringify(highscores))
+    })
+    
+    quizChoices.appendChild(scoreParagraph);
+    quizChoices.appendChild(submitLabel);
+    quizChoices.appendChild(submitInput);
+    quizChoices.appendChild(submitBtn);
 }
