@@ -23,6 +23,10 @@ header {
 main {
 text-align: center;
 }
+ol {
+    list-style-position: inside;
+}
+
 
 button {
     border: none;
