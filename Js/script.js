@@ -66,7 +66,7 @@ function startScreen(){
 //starting the timer, when timer ends call endpage function
 function startTimer() {
      timer = setInterval(function(){
-        if (time !==0) {
+        if (time >=1) {
             time --;
         }else {
             endPage();
@@ -85,11 +85,9 @@ function quizStart() {
     quiz[questionNum].choices.forEach(text => {
        let btnChoice = buttonCreation(text, function() {
             if (this.textContent === quiz[questionNum].answer){
-                alert("correct");
             } else {
                 if (time !== 0)
                 time = (time - 20)
-                alert("incorrect")
             }
             questionNum++;
             if (quiz.length !== questionNum) {
@@ -98,6 +96,7 @@ function quizStart() {
                 endPage()
             }
         })
+        let correctChoice = document.createElement("p")
         quizChoices.appendChild(btnChoice)
     })
 }
@@ -125,7 +124,7 @@ function endPage (){
     scoreParagraph.textContent = "Your score is " + time; 
     //need to create submit form for highscores
     let submitLabel = document.createElement("label");
-    submitLabel.textContent = "Enter your initials."
+    submitLabel.textContent = "Enter your initials: "
     let submitInput = document.createElement("input")
     let submitBtn = buttonCreation("Submit", function(){
         let initals = submitInput.value;
