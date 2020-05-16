@@ -42,6 +42,9 @@ let questionNum = 0
 
 //start screen function with function scope created elements and making sure it is called at the start
 function startScreen(){
+    [...quizChoices.childNodes].forEach(element => {
+        element.remove();
+    });
     let startingParagraph = document.createElement("p");
     let startButton = document.createElement("button")
 
@@ -57,9 +60,8 @@ function startScreen(){
         startTimer()
         quizStart()
     });
+
 }
-//default function called on page load
-startScreen()
 
 //starting the timer, when timer ends call endpage function
 function startTimer() {
@@ -67,7 +69,7 @@ function startTimer() {
         if (time !==0) {
             time --;
         }else {
-            endpage();
+            endPage();
         }
         timeLeft.textContent = time;
     }, 1000);
@@ -80,7 +82,7 @@ function quizStart() {
     });
     quizQuestion.textContent = quiz[questionNum].question;
 
-    quiz[questionNum].choices.forEach(function(text) {
+    quiz[questionNum].choices.forEach(text => {
        let btnChoice = buttonCreation(text, function() {
             if (this.textContent === quiz[questionNum].answer){
                 alert("correct");
@@ -115,7 +117,7 @@ function endPage (){
         element.remove();
     });
     clearInterval(timer);
-    //timeLeft.textContent = time;
+    questionNum = 0
 
     quizQuestion.textContent = "All Done!";
 
@@ -129,10 +131,46 @@ function endPage (){
         let initals = submitInput.value;
         highscores.push({"name": initals, "score": time});
         localStorage.setItem("Highscores", JSON.stringify(highscores))
-    })
+        highscorePage();
+    });
     
     quizChoices.appendChild(scoreParagraph);
     quizChoices.appendChild(submitLabel);
     quizChoices.appendChild(submitInput);
     quizChoices.appendChild(submitBtn);
 }
+//function to hold highscores and access them and put them into an ordered list. Needs to be able to start the quiz again and clear the localstorage if wanted
+function highscorePage (){
+    [...quizChoices.childNodes].forEach(element => {
+        element.remove();
+    });
+    quizQuestion.textContent = "Highscores";
+    highscores = JSON.parse(localStorage.getItem("Highscores"));
+
+    let scoreList = document.createElement("ol");
+    
+    highscores.forEach(element =>{
+        let nameScore = document.createElement("li");
+        nameScore.textContent = `${element.name} - ${element.score}`;
+        scoreList.appendChild(nameScore);
+    })
+    
+    let returnBtn = buttonCreation("Return", function(){
+        time = 75;
+        startScreen();
+    });
+
+    let clearBtn = buttonCreation("Clear Scores", function(){
+        highscores = [];
+        localStorage.clear;
+        scoreList.remove();
+    });
+
+
+    quizChoices.appendChild(scoreList);
+    quizChoices.appendChild(returnBtn);
+    quizChoices.appendChild(clearBtn);
+}
+//default function called on page load with evenlistener for highscore page call
+startScreen()
+highscoreLink.addEventListener("click", highscorePage);
