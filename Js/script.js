@@ -115,7 +115,7 @@ function endPage (){
         element.remove();
     });
     clearInterval(timer);
-    timeLeft.textContent = time;
+    //timeLeft.textContent = time;
 
     quizQuestion.textContent = "All Done!";
 
