@@ -7,7 +7,7 @@ const highscoreLink = document.getElementById("highscores");
 const quiz = [
     {
         "question": "Commonly used data types DO NOT include",
-        "choices":["strings", "booleans","alerts", "numbers"],
+        "choices":["strings","alerts", "booleans", "numbers"],
         "answer": "alerts"
     },
     {
@@ -22,12 +22,12 @@ const quiz = [
     },
     {
         "question": "Inside which HTML element do we put the JavaScript?",
-        "choices": ["<scripting>","<javascript>","<js>","<script>"],
+        "choices": ["<scripting>","<javascript>","<script>","<js>"],
         "answer": "<script>"
     },
     {
         "question": 'How do you write "Hello World" in an alert box?',
-        "choices": ['alertBox("Hello World");','msg("Hello World");','alert("Hello World");','msgBox("Hello World");'],
+        "choices": ['alert("Hello World");','alertBox("Hello World");','msg("Hello World");','msgBox("Hello World");'],
         "answer": 'alert("Hello World");'
     }
 ];
