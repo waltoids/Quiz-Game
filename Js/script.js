@@ -28,7 +28,7 @@ const quiz = [
     {
         "question": 'How do you write "Hello World" in an alert box?',
         "choices": ['alertBox("Hello World");','msg("Hello World");','alert("Hello World");','msgBox("Hello World");'],
-        "answer": 'alert("Hellow World);'
+        "answer": 'alert("Hello World");'
     }
 ];
 //assigning global variables for timer
@@ -54,9 +54,8 @@ function startScreen(){
     startButton.addEventListener("click", function(){
         event.preventDefault()
         startTimer()
-        quizScreen()
+        quizStart()
     });
-    console.log(quiz[1].choices.length)
 }
 //default function called on page load
 startScreen()
@@ -74,14 +73,31 @@ function startTimer() {
     }, 1000);
 }
 
-//function that appends quiz.question to quizQuestion and quiz.choices to quizChoices and removes previous assignments
-function quizScreen() {
+//function that appends quiz.question to quizQuestion and quiz.choices to quizChoices and removes previous elements
+function quizStart() {
     [...quizChoices.childNodes].forEach(element => {
         element.remove();
     });
     quizQuestion.textContent = quiz[questionNum].question;
 
-    quiz[questionNum].choices.forEach
+    quiz[questionNum].choices.forEach(function(text) {
+       let btnChoice = buttonCreation(text, function() {
+            if (this.textContent === quiz[questionNum].answer){
+                alert("correct");
+            } else {
+                if (time !== 0)
+                time = (time - 20)
+                alert("incorrect")
+            }
+            questionNum++;
+            if (quiz.length !== questionNum) {
+                quizStart()
+            }else{
+                endPage()
+            }
+        })
+        quizChoices.appendChild(btnChoice)
+    })
 }
 
 //need to create a function that converts items into a button
