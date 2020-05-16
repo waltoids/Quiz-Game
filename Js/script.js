@@ -1,8 +1,8 @@
 //assigning document ids to variables in order to minuplate in js
-const quizQuestion = $("#questions");
-const quizAnswers = $("#answerList");
-const timeLeft = $("#timer");
-const highscoreLink = $("#highscores");
+const quizQuestion = document.getElementById("questions");
+const quizAnswers = document.getElementById("answerList");
+const timeLeft = document.getElementById("timer");
+const highscoreLink = document.getElementById("highscores");
 //create complex quiz object with key value pairs
 const quiz = [
     {
@@ -36,3 +36,41 @@ let time = 75;
 
 //assigning global variables for highscore
 let highscores = [];
+
+//start screen function with function scope created elements and making sure it is called at the start
+function startScreen(){
+    let startingParagraph = document.createElement("p");
+    let startButton = document.createElement("button")
+
+    quizQuestion.textContent = "Coding Quiz Challange!!!";
+    startingParagraph.textContent = "Try to answer the following questions as fast as you can. Your score will be the time remaining."
+    startButton.textContent = "Start the Quiz";
+
+    quizAnswers.appendChild(startingParagraph);
+    quizAnswers.appendChild(startButton);
+
+    startButton.addEventListener("click", function(){
+        event.preventDefault()
+        startTimer()
+    })
+}
+//default function called on page load
+startScreen()
+
+//starting the timer, when timer ends call endpage function
+function startTimer() {
+    let timer = setInterval(function(){
+        if (time !==0) {
+            time --;
+        }else {
+            endpage();
+            clearInterval(timer);
+        }
+        timeLeft.textContent = time;
+    }, 1000);
+}
+
+//function that appends quiz.question to quizQuestion and quiz.choices to answerList and removes previous assignments
+function quizScreen() {
+
+}
