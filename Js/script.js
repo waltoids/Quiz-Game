@@ -33,6 +33,7 @@ const quiz = [
 ];
 //assigning global variables for timer
 let time = 75;
+let timer;
 
 //assigning global variables for highscore
 let highscores = [];
@@ -62,12 +63,11 @@ startScreen()
 
 //starting the timer, when timer ends call endpage function
 function startTimer() {
-    let timer = setInterval(function(){
+     timer = setInterval(function(){
         if (time !==0) {
             time --;
         }else {
             endpage();
-            // clearInterval(timer);
         }
         timeLeft.textContent = time;
     }, 1000);
@@ -115,6 +115,7 @@ function endPage (){
         element.remove();
     });
     clearInterval(timer);
+    timeLeft.textContent = time;
 
     quizQuestion.textContent = "All Done!";
 
