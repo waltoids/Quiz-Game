@@ -1,4 +1,6 @@
 # Quiz-Game
+[Deployed page](https://waltoids.github.io/Quiz-Game/)
+
 The game is fairly simple.
 Hit start to start the quiz game.
 You will be given a multiple choice quiz with a 75 second timer.
